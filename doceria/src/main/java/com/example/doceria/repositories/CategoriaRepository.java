@@ -8,11 +8,7 @@ import com.example.doceria.models.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
-
-
-
     @Query("select d from Categoria d left join fetch d.doces ds where d.id = :id")
     Categoria findCategoriaFetchDoce(@Param("id") Long id);
-    
-    
+
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +27,7 @@ public class Doce {
     @Column(nullable = false)
     private Integer qtdCurtidas;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cateogria_id")
     private Categoria categoria;
 

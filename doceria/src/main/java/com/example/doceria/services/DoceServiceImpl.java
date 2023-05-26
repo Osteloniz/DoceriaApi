@@ -33,6 +33,7 @@ public class DoceServiceImpl implements DoceService {
         doce.setNome(doceDTO.getNome());
         doce.setIngredientes(doceDTO.getIngredientes());
         doce.setQtdCurtidas(doceDTO.getQtdCurtidas());
+        doce.setCategoria(categoria);
         return doceRepository.save(doce);
 
     }
@@ -57,6 +58,21 @@ public class DoceServiceImpl implements DoceService {
 
     @Override
     @Transactional
+    public void addCurtida(Long id, DoceDTO doceDTO) {
+        Doce doce = doceRepository.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Doce Não encontrado"));
+        Categoria categoria = categoriaRepository.findById(doceDTO.getCategoriaId())
+                .orElseThrow(() -> new RegraNegocioException("Categoria Não Encontrada"));
+
+        doce.setNome(doceDTO.getNome());
+        doce.setIngredientes(doceDTO.getIngredientes());
+        doce.setQtdCurtidas(doceDTO.getQtdCurtidas());
+        doce.setCategoria(categoria);
+        doceRepository.save(doce);
+    }
+
+    @Override
+    @Transactional
     public void remover(Long id) {
         doceRepository.deleteById(id);
     }
@@ -72,12 +88,14 @@ public class DoceServiceImpl implements DoceService {
         doce.setNome(doceDTO.getNome());
         doce.setIngredientes(doceDTO.getIngredientes());
         doce.setQtdCurtidas(doceDTO.getQtdCurtidas());
+        doce.setCategoria(categoria);
 
         doceRepository.save(doce);
 
     }
 
     @Override
+    @Transactional
     public List<DadosDoceDTO> obterTodos() {
         return doceRepository.findAll().stream().map((Doce d) -> {
             return DadosDoceDTO.builder()
